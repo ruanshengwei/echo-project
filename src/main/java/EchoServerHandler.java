@@ -1,10 +1,13 @@
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 /**
  * Server Handler
+ *
  * @author jagger
  * @create 2020-01-03 17:31
  **/
@@ -17,7 +20,8 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("Server received : " + msg.toString());
+        ByteBuf bb = ((ByteBuf) msg);
+        System.out.println("Server received : " + bb.toString(CharsetUtil.UTF_8));
         ctx.write(msg);
     }
 
